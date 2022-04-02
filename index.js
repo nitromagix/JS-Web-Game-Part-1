@@ -2,7 +2,7 @@
 const IMAGE_DIR = 'assets/'
 const DEFAULT_BG_IMAGE_WIDTH = 100;
 const DEFAULT_BG_IMAGE_HEIGHT = 100;
-const GRASS_STOP_SKY_START_POS = 566
+const GRASS_STOP_SKY_START_POS = 500
 
 function createImageElement(source) {
    let image = document.createElement('img')
@@ -33,31 +33,23 @@ function renderBackground() {
    let clientWidth = document.documentElement.clientWidth;
    let clientHeight = document.documentElement.clientHeight;
 
-   let widthMultiplier = parseInt(clientWidth / DEFAULT_BG_IMAGE_WIDTH);
-
-   let heightMultiplier = parseInt(GRASS_STOP_SKY_START_POS / DEFAULT_BG_IMAGE_HEIGHT);
+   let heightMultiplier = parseInt(clientHeight / DEFAULT_BG_IMAGE_HEIGHT);
    let heightMod = GRASS_STOP_SKY_START_POS % DEFAULT_BG_IMAGE_HEIGHT;
-
-   //grass
 
    let bgImageWidth = DEFAULT_BG_IMAGE_WIDTH;
    let i = 0;
    for (i; i <= heightMultiplier; i++) {
-      let bgImageHeight = i === heightMultiplier ? heightMod : DEFAULT_BG_IMAGE_HEIGHT;
+      let bgImageHeight = ((i === heightMultiplier) && (heightMod > 0)) ? heightMod : DEFAULT_BG_IMAGE_HEIGHT;
+      ypos = i * bgImageHeight;
+      let bgSource = ypos >= GRASS_STOP_SKY_START_POS ? 'sky.png' : 'grass.png';
       var xpos = 0
-      var ypos = 0
       while (xpos  < clientWidth) {
-         let grass = createImageElement(IMAGE_DIR + 'grass.png');
-         
-
-         addFixedElementToBody(grass, xpos + 'px', ypos + 'px');
+         let bg = createImageElement(IMAGE_DIR + bgSource);
+         bg.height = bgImageHeight;
+         addFixedElementToBody(bg, xpos + 'px', ypos + 'px');
+         xpos = xpos + bgImageWidth;
       }
    }
-
-   console.log(widthMultiplier);
-   console.log(heightMultiplier);
-   console.log(heightMod);
-   // console.log(`Width: ${w}, Height: ${h}`);
 }
 
 
