@@ -1,17 +1,24 @@
 const IMAGE_DIR = 'assets/'
-const DEFAULT_BG_IMAGE_WIDTH = 100;
-const DEFAULT_BG_IMAGE_HEIGHT = 100;
-const HORIZON = 525
+const DEFAULT_BG_IMAGE_WIDTH = 50;
+const DEFAULT_BG_IMAGE_HEIGHT = 50;
+const HORIZON = 501;
 
-function addImage(imageName, left, bottom) {
+function addImage(imageName) {
 
    let image = document.createElement('img')
    image.src = IMAGE_DIR + imageName;
    image.style.position = 'fixed';
-   image.style.left = left;
-   image.style.bottom = bottom;
-   document.body.append(image);
    return image
+}
+
+function move(element) {
+   function moveToCoordinates(left, bottom) {
+      element.style.left = left;
+      element.style.bottom = bottom;
+      document.body.append(element);
+   }
+
+   return { to: moveToCoordinates };
 }
 
 function makeElementRemovable(element) {
@@ -34,15 +41,16 @@ let getClient = function () {
 function renderBackground() {
    let client = getClient();
 
-   let ypos = 0;
-   while (ypos < client.height) {
-      let bgImageName = ypos < HORIZON ? 'grass.png' : 'sky.png';
-      var xpos = 0;
-      while (xpos < client.width) {
-         addImage(bgImageName, xpos + 'px', ypos + 'px');
-         xpos = xpos + DEFAULT_BG_IMAGE_WIDTH;
+   let yPosition = 0;
+   while (yPosition < client.height) {
+      let bgImageName = yPosition < HORIZON ? 'grass.png' : 'sky.png';
+      var xPosition = 0;
+      while (xPosition < client.width) {
+         let bgImage = addImage(bgImageName);
+         move(bgImage).to(xPosition + 'px', yPosition + 'px');
+         xPosition = xPosition + DEFAULT_BG_IMAGE_WIDTH;
       }
-      ypos = ypos + DEFAULT_BG_IMAGE_HEIGHT;
+      yPosition = yPosition + DEFAULT_BG_IMAGE_HEIGHT;
    }
 }
 
@@ -59,16 +67,18 @@ let images = [
 ];
 
 for (i in images) {
-   addImage(images[i][0], images[i][1], images[i][2])
+   let image = addImage(images[i][0]);
+   move(image).to(images[i][1], images[i][2]);
 }
 
 let items = [
    ['sword.png', '500px', '405px'],
    ['sheild.png', '165px', '185px'],
    ['staff.png', '600px', '100px']
-]
+];
 
 for (i in items) {
-   let item = addImage(items[i][0], items[i][1], items[i][2])
-   makeElementRemovable(item)
+   let item = addImage(items[i][0])
+   makeElementRemovable(item);
+   move(item).to(items[i][1], items[i][2]);
 }
