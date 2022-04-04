@@ -3,7 +3,7 @@
 
 const DEFAULT_BG_IMAGE_WIDTH = 100;
 const DEFAULT_BG_IMAGE_HEIGHT = 100;
-const HORIZON_POSITION = 501;
+const HORIZON_POSITION = 500;
 
 function renderBackground() {
    let client = {
