@@ -28,6 +28,22 @@ function makeElementRemovable(element) {
    return element;
 }
 
+function addImagestoScreen(imagesData, actionCallback){
+   let data = imagesData;
+   for (i in data) {
+      let url = data[i][0];
+      let left = data[i][1];
+      let bottom = data[i][2];
+   
+      let image = addImage(url)
+      move(image).to(left, bottom);
+
+      if (actionCallback !== null && actionCallback !== undefined)  {
+         actionCallback(image);
+      }
+   }
+}
+
 let getClient = function () {
    return {
       width: document.documentElement.clientWidth,
@@ -55,9 +71,10 @@ function renderBackground() {
 }
 
 
+
 renderBackground();
 
-let images = [
+let imagesData = [
    ['green-character.gif', '100px', '100px'],
    ['pine-tree.png', '450px', '200px'],
    ['tree.png', '200px', '300px'],
@@ -66,19 +83,12 @@ let images = [
    ['well.png', '500px', '425px']
 ];
 
-for (i in images) {
-   let image = addImage(images[i][0]);
-   move(image).to(images[i][1], images[i][2]);
-}
+addImagestoScreen(imagesData);
 
-let items = [
+let itemsData = [
    ['sword.png', '500px', '405px'],
    ['sheild.png', '165px', '185px'],
    ['staff.png', '600px', '100px']
 ];
 
-for (i in items) {
-   let item = addImage(items[i][0])
-   makeElementRemovable(item);
-   move(item).to(items[i][1], items[i][2]);
-}
+addImagestoScreen(itemsData, makeElementRemovable)
