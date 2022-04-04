@@ -1,9 +1,8 @@
-
 'use strict';
 
 const DEFAULT_BG_IMAGE_WIDTH = 100;
 const DEFAULT_BG_IMAGE_HEIGHT = 100;
-const HORIZON_POSITION = 500;
+const HORIZON_POSITION = 650;
 
 function renderBackground() {
    let client = {
@@ -12,12 +11,18 @@ function renderBackground() {
    };
 
    let yPosition = 0;
+   let horizonSet = false;
    while (yPosition < client.height) {
-      let bgImageName = yPosition < HORIZON_POSITION ? 'assets/grass.png' : 'assets/sky.png';
+      let bgImageName = yPosition < HORIZON_POSITION ? 'assets/grass.png' : 'assets/sky.png'
+
+      if (yPosition > HORIZON_POSITION && horizonSet == false) {
+            yPosition = HORIZON_POSITION;
+            horizonSet = true;
+      }
       var xPosition = 0;
       while (xPosition < client.width) {
          let bgImage = createImage(bgImageName);
-         move(bgImage).to(xPosition + 'px', yPosition + 'px');
+         move(bgImage).to(xPosition, yPosition);
          xPosition = xPosition + DEFAULT_BG_IMAGE_WIDTH;
       }
       yPosition = yPosition + DEFAULT_BG_IMAGE_HEIGHT;

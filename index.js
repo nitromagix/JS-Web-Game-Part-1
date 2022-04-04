@@ -12,26 +12,27 @@ function makeInventoryable(element) {
    return element;
 }
 
+
 renderBackground();
 
 const inventory = newInventory();
-move(inventory).to('0px', '0px');
+move(inventory).to(0, 0);
 
 let imagesData = [
-   ['assets/green-character.gif', '100px', '100px'],
-   ['assets/pine-tree.png', '450px', '200px'],
-   ['assets/tree.png', '200px', '300px'],
-   ['assets/pillar.png', '350px', '100px'],
-   ['assets/crate.png', '150px', '200px'],
-   ['assets/well.png', '500px', '425px']
+   ['assets/green-character.gif', 100, 250],
+   ['assets/pine-tree.png', 450, 350],
+   ['assets/tree.png', 200, 450],
+   ['assets/pillar.png', 350, 250],
+   ['assets/crate.png', 150, 350],
+   ['assets/well.png', 500, 575]
 ];
 
 addElementsFromDataArray(imagesData);
 
 let itemImagesData = [
-   ['assets/sword.png', '500px', '405px'],
-   ['assets/sheild.png', '165px', '185px'],
-   ['assets/staff.png', '600px', '100px']
+   ['assets/sword.png', 500, 555],
+   ['assets/sheild.png', 165, 335],
+   ['assets/staff.png', 600, 250]
 ];
 
 addElementsFromDataArray(itemImagesData, makeInventoryable)
