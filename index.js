@@ -1,9 +1,9 @@
 const IMAGE_DIR = 'assets/'
-const DEFAULT_BG_IMAGE_WIDTH = 50;
-const DEFAULT_BG_IMAGE_HEIGHT = 50;
-const HORIZON = 501;
+const DEFAULT_BG_IMAGE_WIDTH = 100;
+const DEFAULT_BG_IMAGE_HEIGHT = 100;
+const HORIZON_POSITION = 501;
 
-function addImage(imageName) {
+function createImage(imageName) {
 
    let image = document.createElement('img')
    image.src = IMAGE_DIR + imageName;
@@ -21,7 +21,7 @@ function move(element) {
    return { to: moveToCoordinates };
 }
 
-function makeElementRemovable(element) {
+function makeRemovable(element) {
    element.addEventListener('dblclick', function (e) {
       element.remove();
    });
@@ -35,7 +35,7 @@ function addImagestoScreen(imagesData, actionCallback){
       let left = data[i][1];
       let bottom = data[i][2];
    
-      let image = addImage(url)
+      let image = createImage(url)
       move(image).to(left, bottom);
 
       if (actionCallback !== null && actionCallback !== undefined)  {
@@ -44,33 +44,24 @@ function addImagestoScreen(imagesData, actionCallback){
    }
 }
 
-let getClient = function () {
-   return {
+function renderBackground() {
+   let client = {
       width: document.documentElement.clientWidth,
       height: document.documentElement.clientHeight
-   }
-}
-
-// Attaching the event listener function to window's resize event
-// window.addEventListener("resize", renderBackground);
-
-function renderBackground() {
-   let client = getClient();
+   };
 
    let yPosition = 0;
    while (yPosition < client.height) {
-      let bgImageName = yPosition < HORIZON ? 'grass.png' : 'sky.png';
+      let bgImageName = yPosition < HORIZON_POSITION ? 'grass.png' : 'sky.png';
       var xPosition = 0;
       while (xPosition < client.width) {
-         let bgImage = addImage(bgImageName);
+         let bgImage = createImage(bgImageName);
          move(bgImage).to(xPosition + 'px', yPosition + 'px');
          xPosition = xPosition + DEFAULT_BG_IMAGE_WIDTH;
       }
       yPosition = yPosition + DEFAULT_BG_IMAGE_HEIGHT;
    }
 }
-
-
 
 renderBackground();
 
@@ -85,10 +76,10 @@ let imagesData = [
 
 addImagestoScreen(imagesData);
 
-let itemsData = [
+let actionImagesData = [
    ['sword.png', '500px', '405px'],
    ['sheild.png', '165px', '185px'],
    ['staff.png', '600px', '100px']
 ];
 
-addImagestoScreen(itemsData, makeElementRemovable)
+addImagestoScreen(actionImagesData, makeRemovable)
