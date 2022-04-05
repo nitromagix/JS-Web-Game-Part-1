@@ -1,7 +1,7 @@
 
 'use strict';
 
-function addElementsFromDataArray(dataArray, actionCallback){
+function createImagesFromData(dataArray, actionCallback){
    let data = dataArray;
    for (let i in data) {
       let url = data[i][0];

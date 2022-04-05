@@ -27,7 +27,7 @@ let imagesData = [
    ['assets/images/well.png', 500, 575]
 ];
 
-addElementsFromDataArray(imagesData);
+createImagesFromData(imagesData);
 
 let itemImagesData = [
    ['assets/images/sword.png', 500, 555],
@@ -35,7 +35,7 @@ let itemImagesData = [
    ['assets/images/staff.png', 600, 250]
 ];
 
-addElementsFromDataArray(itemImagesData, makeInventoryable)
+createImagesFromData(itemImagesData, makeInventoryable)
 
 const character = createImage('assets/green-character/static.gif')
 
