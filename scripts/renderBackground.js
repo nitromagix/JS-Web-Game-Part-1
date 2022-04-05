@@ -13,7 +13,7 @@ function renderBackground() {
    let yPosition = 0;
    let horizonSet = false;
    while (yPosition < client.height) {
-      let bgImageName = yPosition < HORIZON_POSITION ? 'assets/grass.png' : 'assets/sky.png'
+      let bgImageName = yPosition < HORIZON_POSITION ? 'assets/images/grass.png' : 'assets/images/sky.png'
 
       if (yPosition > HORIZON_POSITION && horizonSet == false) {
             yPosition = HORIZON_POSITION;
